@@ -47,15 +47,16 @@ void loop() {
   soilRead();
   resistorRead();
 
-  Serial.print("Temperature: ");
+  Serial.print("{'temp': ");
   Serial.print(t);
-  Serial.print(" Humidity: ");
+  Serial.print(",'humd': ");
   Serial.print(h);
-  Serial.print(" Brightness: ");
+  Serial.print(",'bright': ");
   Serial.print( brightness);
   Serial.print
-  (" Soil Humidity: ");
-  Serial.println(humidity);
+  (",'s_humd': ");
+  Serial.print(humidity);
+  Serial.println("}");
 
   delay(100);
 
