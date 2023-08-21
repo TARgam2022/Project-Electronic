@@ -23,9 +23,6 @@ int humidityRaw;
 int humidity;
 int brightnessRaw;
 int brightness;
-int brightnessRawR;
-
-bool switchSerial = false;
 
 void dhtRead(){ 
   h = dht.readHumidity();  
@@ -35,43 +32,30 @@ void dhtRead(){
 
 void soilRead(){
   humidityRaw = analogRead(fork);
-  humidity = map(humidityRaw, 512, 0, 100, 0); 
+  humidity = map(humidityRaw, 940, 490, 100, 0); 
   }
 
 void resistorRead(){
-
      brightnessRaw = analogRead(resistor);
-  brightness = map(brightnessRaw, 900, 0, 100, 0); 
-  if(brightness > 100){
-    brightness = 100;
-  }
+  brightness = map(brightnessRaw, 940, 490, 100, 0); 
+
   }
 
 void loop() {
- 
-   dhtRead();
+
+  dhtRead();
   soilRead();
   resistorRead();
-while (Serial.available()){}
-String s = Serial.readString();
-s.trim();
-Serial.print(s);
-if( s == "START"){
-  switchSerial = true;
-  }
- 
- 
-if(switchSerial == true){
-  
-  Serial.print("{\"temp\": \"");
+
+  Serial.print("temperatura: ");
   Serial.print(t);
-  Serial.print("\",\"humi\": \"");
+  Serial.print(" humedad: ");
   Serial.print(h);
-  Serial.print("\", \"bright\": \"");
+  Serial.print(" Brillo de el ambiente: ");
   Serial.print( brightness);
-  Serial.print("\", \"sHumi\": \"");
+  Serial.print(" Humedad de suelo: ");
   Serial.print(humidity);
-  Serial.println("\"}");
-  delay(1000);
-}
+  Serial.println("");
+  delay(100);
+
 }
